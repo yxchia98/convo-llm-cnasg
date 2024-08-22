@@ -2,8 +2,8 @@ from transformers import AutoTokenizer
 from optimum.onnxruntime import ORTModelForCausalLM
 import torch
 
-tokenizer = AutoTokenizer.from_pretrained("optimum/gpt2")
-model = ORTModelForCausalLM.from_pretrained("optimum/gpt2")
+tokenizer = AutoTokenizer.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
+model = ORTModelForCausalLM.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
 
 inputs = tokenizer("My name is Philipp and I live in Germany.", return_tensors="pt")
 
@@ -15,8 +15,8 @@ tokenizer.batch_decode(gen_tokens)
 # from transformers import AutoTokenizer, pipeline
 # from optimum.onnxruntime import ORTModelForCausalLM
 
-# tokenizer = AutoTokenizer.from_pretrained("optimum/gpt2")
-# model = ORTModelForCausalLM.from_pretrained("optimum/gpt2")
+# tokenizer = AutoTokenizer.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
+# model = ORTModelForCausalLM.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
 # onnx_gen = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 # text = "My name is Philipp and I live in Germany."
