@@ -1,7 +1,7 @@
 from optimum.onnxruntime import ORTModelForCausalLM
 from transformers import AutoTokenizer
 
-model_checkpoint = "aisingapore/sea-lion-7b-instruct"
+model_checkpoint = "/llm-models/hf-models/sea-lion-7b-instruct/"
 save_directory = "/llm-models/onnx-models/sea-lion-7b-instruct/"
 
 # Load a model from transformers and export it to ONNX

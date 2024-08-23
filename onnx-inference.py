@@ -2,21 +2,22 @@ from transformers import AutoTokenizer
 from optimum.onnxruntime import ORTModelForCausalLM
 import torch
 
-tokenizer = AutoTokenizer.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
-model = ORTModelForCausalLM.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
+tokenizer = AutoTokenizer.from_pretrained("/llm-models/hf-models/SeaLLMs-v3-7B-Chat/", trust_remote_code=True)
+model = ORTModelForCausalLM.from_pretrained("/llm-models/onnx-models/SeaLLMs-v3-7B-Chat", trust_remote_code=True, use_cache=False, use_io_binding=False)
 
 inputs = tokenizer("My name is Philipp and I live in Germany.", return_tensors="pt")
 
-gen_tokens = model.generate(**inputs,do_sample=True,temperature=0.9, min_length=20,max_length=20)
-tokenizer.batch_decode(gen_tokens)
+output_ids = model.generate(**inputs,do_sample=True,temperature=0.9, min_length=20,max_length=20)
+# tokenizer.batch_decode(output_ids)
+print(tokenizer.decode(output_ids[0], skip_special_tokens=True))
 
 
 # # Using transformers.pipelines
 # from transformers import AutoTokenizer, pipeline
 # from optimum.onnxruntime import ORTModelForCausalLM
 
-# tokenizer = AutoTokenizer.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
-# model = ORTModelForCausalLM.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/")
+# tokenizer = AutoTokenizer.from_pretrained("/llm-models/hf-models/sea-lion-7b-instruct/", trust_remote_code=True, use_cache=False)
+# model = ORTModelForCausalLM.from_pretrained("/llm-models/onnx-models/sea-lion-7b-instruct/", trust_remote_code=True, use_cache=False)
 # onnx_gen = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 # text = "My name is Philipp and I live in Germany."
